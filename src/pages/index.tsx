@@ -1,6 +1,34 @@
 import Head from "next/head";
+import { useState } from "react";
 
 const Home = () => {
+  const [inputs, setInputs] = useState("8,121,123");
+  const [inputs1, setInputs1] = useState("8,121,123");
+  const [inputs2, setInputs2] = useState("8,121,123");
+  const [sum, setSetSum] = useState(false);
+  const [isAnswer, setAnswer] = useState(false);
+
+  const handleChange = (symbol: string) => {
+    if (sum) {
+      setInputs2((_prev) => inputs2 + symbol)
+    } else {
+      setInputs1((_prev) => inputs1 + symbol)
+    }
+  };
+
+  const handleEqual = () => {
+    setAnswer(true);
+    setInputs(String(+inputs1 + +inputs2))
+  }
+
+  const handleClear = () => {
+    setAnswer(false);
+    setSetSum(false);
+    setInputs('')
+    setInputs1('')
+    setInputs2('')
+  }
+
   return (
     <>
       <Head>
@@ -9,7 +37,136 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="text-4xl">hello</div>
+      <div className="flex  justify-center py-10 w-full h-screen bg-slate-300">
+        <div className="bg-black  w-[400px]">
+          <div className="h-1/4 flex items-end">
+            <div className="text-white text-right text-7xl font-extralight w-full pb-2">
+              {isAnswer ? inputs : sum ? inputs2 : inputs1}
+            </div>
+          </div>
+
+          <div className="bg-white h-3/4">
+            <div className="grid grid-rows-4 text-5xl font-extralight text-center">
+              <div className="grid grid-cols-4">
+                <button
+                  onClick={handleClear}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  c
+                </button>
+                <button
+                  onClick={() => handleChange("")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  +/-
+                </button>
+                <button
+                  onClick={() => handleChange("")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  %
+                </button>
+                <button className="bg-[#fa8f10] border-[0.5px] border-[#767f80] py-5">
+                  ÷
+                </button>
+              </div>
+
+              <div className="grid grid-cols-4">
+                <button onClick={() => handleChange("7")} className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]">
+                  7
+                </button>
+                <button
+                  onClick={() => handleChange("8")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  8
+                </button>
+                <button
+                  onClick={() => handleChange("9")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  9
+                </button>
+                <button className="bg-[#fa8f10] border-[0.5px] border-[#767f80] py-5">
+                  x
+                </button>
+              </div>
+
+              <div className="grid grid-cols-4">
+                <button
+                  onClick={() => handleChange("4")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  4
+                </button>
+                <button
+                  onClick={() => handleChange("5")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  5
+                </button>
+                <button
+                  onClick={() => handleChange("6")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  6
+                </button>
+                <button className="bg-[#fa8f10] border-[0.5px] border-[#767f80] py-5">
+                  -
+                </button>
+              </div>
+
+              <div className="grid grid-cols-4">
+                <button
+                  onClick={() => handleChange("1")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  1
+                </button>
+                <button
+                  onClick={() => handleChange("2")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  2
+                </button>
+                <button
+                  onClick={() => handleChange("3")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  3
+                </button>
+                <button
+                  onClick={() => setSetSum(true)}
+                  className="bg-[#fa8f10] border-[0.5px] border-[#767f80] py-5"
+                >
+                  +
+                </button>
+              </div>
+
+              <div className="grid grid-cols-4">
+                <button
+                  onClick={() => handleChange("0")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80] col-span-2"
+                >
+                  0
+                </button>
+                <button
+                  onClick={() => handleChange("")}
+                  className="bg-[#d2d3d7] py-5 border-[0.5px] border-[#767f80]"
+                >
+                  .
+                </button>
+                <button
+                  onClick={handleEqual}
+                  className="bg-[#fa8f10] border-[0.5px] border-[#767f80] py-5"
+                >
+                  =
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
